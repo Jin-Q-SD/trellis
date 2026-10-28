@@ -1,0 +1,38 @@
+{
+  "description": "trellis：会话开始/压缩后提醒待处理事项和 memory，拦截项目内的删除命令",
+  "hooks": {
+    "SessionStart": [
+      {
+        "matcher": "startup|resume|clear",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "d=\"$PWD\"; while [ \"$d\" != / ] && [ ! -f \"$d/agent/trellis.json\" ]; do d=$(dirname \"$d\"); done; [ -f \"$d/agent/trellis.json\" ] && python3 \"$d/agent/tools/scripts/scan.py\" \"$d\" --brief || true",
+            "statusMessage": "trellis：检查项目状态"
+          }
+        ]
+      },
+      {
+        "matcher": "compact",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "d=\"$PWD\"; while [ \"$d\" != / ] && [ ! -f \"$d/agent/trellis.json\" ]; do d=$(dirname \"$d\"); done; [ -f \"$d/agent/trellis.json\" ] && python3 \"$d/agent/tools/scripts/scan.py\" \"$d\" --brief --after-compact || true",
+            "statusMessage": "trellis：核对 memory"
+          }
+        ]
+      }
+    ],
+    "PreToolUse": [
+      {
+        "matcher": "Bash",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "d=\"$PWD\"; while [ \"$d\" != / ] && [ ! -f \"$d/agent/trellis.json\" ]; do d=$(dirname \"$d\"); done; [ -f \"$d/agent/trellis.json\" ] && python3 \"$d/agent/tools/scripts/guard_delete.py\" --codex || true"
+          }
+        ]
+      }
+    ]
+  }
+}

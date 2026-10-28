@@ -1,0 +1,10 @@
+# 设计源文件和大体积媒体用 Git LFS 管理（需要先安装 git-lfs 并运行 git lfs install）
+*.psd filter=lfs diff=lfs merge=lfs -text
+*.ai filter=lfs diff=lfs merge=lfs -text
+*.sketch filter=lfs diff=lfs merge=lfs -text
+*.xd filter=lfs diff=lfs merge=lfs -text
+*.blend filter=lfs diff=lfs merge=lfs -text
+*.mp4 filter=lfs diff=lfs merge=lfs -text
+*.mov filter=lfs diff=lfs merge=lfs -text
+*.wav filter=lfs diff=lfs merge=lfs -text
+*.zip filter=lfs diff=lfs merge=lfs -text
